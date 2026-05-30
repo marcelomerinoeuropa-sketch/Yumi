@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
@@ -7,491 +7,204 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Pacifico&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --pink: #ff8ec8;
-      --purple: #c77dff;
-      --soft-bg: rgba(255,255,255,0.75);
-      --text: #4a2060;
-    }
-
-    html, body {
-      height: 100%;
-      overflow: hidden;
-      background: linear-gradient(135deg, #ffe4f0 0%, #ffd6eb 30%, #e8d5f5 70%, #d4e8ff 100%);
-      font-family: 'Nunito', sans-serif;
-    }
-
-    /* floating hearts bg */
-    .bg-hearts {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
-    }
-    .bh {
-      position: absolute;
-      opacity: 0.13;
-      animation: drift linear infinite;
-    }
-    @keyframes drift {
-      0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-      8%   { opacity: 0.13; }
-      92%  { opacity: 0.13; }
-      100% { transform: translateY(-120px) rotate(360deg); opacity: 0; }
-    }
-
-    /* setup screen */
-    #setup-screen {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      background: linear-gradient(135deg, #ffe4f0, #e8d5f5);
-    }
-    .setup-card {
-      background: rgba(255,255,255,0.9);
-      backdrop-filter: blur(20px);
-      border-radius: 28px;
-      padding: 32px 28px;
-      max-width: 360px;
-      width: 100%;
-      border: 2px solid rgba(255,150,200,0.3);
-      box-shadow: 0 20px 60px rgba(255,100,180,0.2);
-      text-align: center;
-    }
-    .setup-avatar {
-      font-size: 56px;
-      animation: float 3s ease-in-out infinite;
-      display: block;
-      margin-bottom: 12px;
-    }
-    @keyframes float {
-      0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(-6px); }
-    }
-    .setup-card h1 {
-      font-family: 'Pacifico', cursive;
-      color: var(--text);
-      font-size: 28px;
-      margin-bottom: 6px;
-    }
-    .setup-card p {
-      color: #8860a0;
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 20px;
-      line-height: 1.5;
-    }
-    .setup-card input {
-      width: 100%;
-      padding: 12px 16px;
-      border-radius: 16px;
-      border: 2px solid rgba(255,150,200,0.4);
-      font-family: 'Nunito', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text);
-      outline: none;
-      margin-bottom: 14px;
-      background: rgba(255,255,255,0.9);
-      transition: border-color .2s;
-    }
+    :root { --pink: #ff8ec8; --purple: #c77dff; --text: #4a2060; }
+    html, body { height: 100%; overflow: hidden; background: linear-gradient(135deg, #ffe4f0 0%, #ffd6eb 30%, #e8d5f5 70%, #d4e8ff 100%); font-family: 'Nunito', sans-serif; }
+    .bg-hearts { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+    .bh { position: absolute; opacity: 0.13; animation: drift linear infinite; }
+    @keyframes drift { 0% { transform: translateY(110vh) rotate(0deg); opacity: 0; } 8% { opacity: 0.13; } 92% { opacity: 0.13; } 100% { transform: translateY(-120px) rotate(360deg); opacity: 0; } }
+    #setup-screen { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; padding: 24px; background: linear-gradient(135deg, #ffe4f0, #e8d5f5); }
+    .setup-card { background: rgba(255,255,255,0.95); border-radius: 28px; padding: 32px 28px; max-width: 360px; width: 100%; border: 2px solid rgba(255,150,200,0.3); box-shadow: 0 20px 60px rgba(255,100,180,0.2); text-align: center; }
+    .setup-avatar { font-size: 56px; animation: float 3s ease-in-out infinite; display: block; margin-bottom: 12px; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    .setup-card h1 { font-family: 'Pacifico', cursive; color: var(--text); font-size: 26px; margin-bottom: 6px; }
+    .setup-card p { color: #8860a0; font-size: 13px; font-weight: 600; margin-bottom: 18px; line-height: 1.5; }
+    .setup-card input { width: 100%; padding: 11px 15px; border-radius: 14px; border: 2px solid rgba(255,150,200,0.4); font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); outline: none; margin-bottom: 10px; background: white; transition: border-color .2s; }
     .setup-card input:focus { border-color: var(--pink); }
     .setup-card input::placeholder { color: rgba(150,80,200,0.35); }
-    .setup-btn {
-      width: 100%;
-      padding: 13px;
-      border-radius: 16px;
-      border: none;
-      background: linear-gradient(135deg, var(--pink), var(--purple));
-      color: white;
-      font-family: 'Nunito', sans-serif;
-      font-size: 16px;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: 0 6px 20px rgba(255,100,180,0.35);
-      transition: transform .15s, box-shadow .15s;
-    }
-    .setup-btn:hover { transform: scale(1.03); box-shadow: 0 8px 24px rgba(255,100,180,0.45); }
-    .setup-btn:active { transform: scale(0.97); }
-    .setup-note {
-      font-size: 11px;
-      color: #b090c0;
-      margin-top: 12px;
-      line-height: 1.5;
-    }
-
-    /* chat */
-    #chat-screen {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 10;
-      align-items: center;
-      justify-content: center;
-    }
-    .chat-window {
-      width: 100%;
-      height: 100%;
-      max-width: 480px;
-      max-height: 820px;
-      background: var(--soft-bg);
-      backdrop-filter: blur(20px);
-      border-radius: 0;
-      border: none;
-      box-shadow: none;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      position: relative;
-    }
-    @media (min-width: 520px) {
-      .chat-window {
-        border-radius: 32px;
-        border: 2px solid rgba(255,150,200,0.3);
-        box-shadow: 0 20px 60px rgba(255,100,180,0.2);
-        height: 90vh;
-      }
-    }
-
-    .header {
-      background: linear-gradient(135deg, var(--pink), var(--purple));
-      padding: 16px 18px 13px;
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      box-shadow: 0 4px 20px rgba(255,100,180,0.3);
-      flex-shrink: 0;
-    }
+    .setup-btn { width: 100%; padding: 13px; border-radius: 16px; border: none; background: linear-gradient(135deg, var(--pink), var(--purple)); color: white; font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 20px rgba(255,100,180,0.35); transition: transform .15s; }
+    .setup-btn:hover { transform: scale(1.02); }
+    .setup-note { font-size: 11px; color: #b090c0; margin-top: 10px; line-height: 1.5; }
+    .err { color: #e05080; font-size: 12px; font-weight: 700; margin-top: 8px; display: none; }
+    .err.show { display: block; }
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 250; display: none; }
+    .overlay.show { display: block; }
+    .sidebar { position: fixed; top: 0; left: 0; width: 275px; height: 100%; background: rgba(255,240,252,0.98); z-index: 300; transform: translateX(-100%); transition: transform .3s ease; box-shadow: 4px 0 30px rgba(255,100,180,0.2); display: flex; flex-direction: column; }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-header { padding: 18px 15px 13px; background: linear-gradient(135deg, var(--pink), var(--purple)); display: flex; align-items: center; justify-content: space-between; }
+    .sidebar-header h2 { font-family: 'Pacifico', cursive; color: white; font-size: 17px; }
+    .sidebar-close { background: none; border: none; color: white; font-size: 20px; cursor: pointer; }
+    .new-chat-btn { margin: 12px 10px 6px; padding: 10px; border-radius: 13px; border: 2px dashed rgba(255,150,200,0.5); background: rgba(255,255,255,0.7); color: var(--purple); font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; cursor: pointer; transition: all .2s; text-align: center; }
+    .new-chat-btn:hover { background: white; }
+    .chats-list { flex: 1; overflow-y: auto; padding: 4px 8px; }
+    .chat-item { padding: 10px 11px; border-radius: 11px; cursor: pointer; margin-bottom: 3px; transition: background .2s; display: flex; align-items: center; gap: 6px; }
+    .chat-item:hover { background: rgba(255,150,200,0.15); }
+    .chat-item.active { background: linear-gradient(135deg, rgba(255,142,200,0.2), rgba(199,125,255,0.2)); border: 1px solid rgba(255,150,200,0.3); }
+    .chat-item-info { flex: 1; min-width: 0; }
+    .chat-item-name { font-size: 12.5px; font-weight: 700; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .chat-item-date { font-size: 10px; color: #b090c0; }
+    .chat-delete { background: none; border: none; font-size: 13px; cursor: pointer; opacity: 0; transition: opacity .2s; }
+    .chat-item:hover .chat-delete { opacity: 1; }
+    .sidebar-footer { padding: 10px; border-top: 1px solid rgba(255,150,200,0.2); }
+    .config-btn { width: 100%; padding: 10px; border-radius: 11px; border: none; background: rgba(255,150,200,0.15); color: var(--text); font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .config-btn:hover { background: rgba(255,150,200,0.3); }
+    #app { display: none; position: fixed; inset: 0; z-index: 10; }
+    .app-inner { display: flex; height: 100%; max-width: 480px; margin: 0 auto; flex-direction: column; position: relative; z-index: 1; }
+    .header { background: linear-gradient(135deg, var(--pink), var(--purple)); padding: 13px 15px 11px; display: flex; align-items: center; gap: 11px; box-shadow: 0 4px 20px rgba(255,100,180,0.3); flex-shrink: 0; }
+    .menu-btn { background: none; border: none; color: white; font-size: 21px; cursor: pointer; flex-shrink: 0; }
     .av-wrap { position: relative; }
-    .avatar {
-      width: 50px; height: 50px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #ffe0f0, #ffc2e0);
-      border: 3px solid rgba(255,255,255,0.8);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 26px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      animation: float 3s ease-in-out infinite;
-    }
-    .online-dot {
-      position: absolute; bottom: 1px; right: 1px;
-      width: 11px; height: 11px;
-      background: #4ade80; border-radius: 50%;
-      border: 2px solid white;
-      animation: pdot 2s ease-in-out infinite;
-    }
-    @keyframes pdot {
-      0%,100% { opacity:1; transform:scale(1); }
-      50%      { opacity:.7; transform:scale(1.2); }
-    }
-    .hinfo h1 {
-      font-family: 'Pacifico', cursive;
-      color: white; font-size: 20px;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-    .hinfo p {
-      color: rgba(255,255,255,0.88);
-      font-size: 11.5px; font-weight: 700;
-      letter-spacing: .4px;
-    }
-    .hdeco {
-      margin-left: auto; font-size: 19px;
-      animation: hdeco 4s ease-in-out infinite;
-    }
-    @keyframes hdeco {
-      0%,100% { transform: rotate(0) scale(1); }
-      50%      { transform: rotate(10deg) scale(1.1); }
-    }
-
-    .messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 18px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-    }
+    .avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #ffe0f0, #ffc2e0); border: 3px solid rgba(255,255,255,0.8); display: flex; align-items: center; justify-content: center; font-size: 21px; animation: float 3s ease-in-out infinite; }
+    .online-dot { position: absolute; bottom: 1px; right: 1px; width: 10px; height: 10px; background: #4ade80; border-radius: 50%; border: 2px solid white; animation: pdot 2s ease-in-out infinite; }
+    @keyframes pdot { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.7; transform:scale(1.2); } }
+    .hinfo { flex: 1; min-width: 0; }
+    .hinfo h1 { font-family: 'Pacifico', cursive; color: white; font-size: 17px; }
+    .hinfo p { color: rgba(255,255,255,0.88); font-size: 10.5px; font-weight: 700; }
+    .hdeco { font-size: 17px; flex-shrink: 0; animation: hdeco 4s ease-in-out infinite; }
+    @keyframes hdeco { 0%,100% { transform: rotate(0) scale(1); } 50% { transform: rotate(10deg) scale(1.1); } }
+    .memory-bar { background: rgba(255,255,255,0.6); border-bottom: 1px solid rgba(255,150,200,0.2); padding: 6px 14px; font-size: 11.5px; color: #9060b0; font-weight: 700; display: none; }
+    .memory-bar.show { display: block; }
+    .messages { flex: 1; overflow-y: auto; padding: 14px 12px; display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
     .messages::-webkit-scrollbar { width: 3px; }
     .messages::-webkit-scrollbar-thumb { background: rgba(255,150,200,0.35); border-radius: 3px; }
-
     .msg-row { display: flex; animation: popin .28s cubic-bezier(.34,1.56,.64,1); }
-    @keyframes popin {
-      from { opacity:0; transform:scale(.85) translateY(10px); }
-      to   { opacity:1; transform:scale(1)  translateY(0); }
-    }
-    .msg-row.user      { justify-content: flex-end; }
+    @keyframes popin { from { opacity:0; transform:scale(.85) translateY(10px); } to { opacity:1; transform:scale(1) translateY(0); } }
+    .msg-row.user { justify-content: flex-end; }
     .msg-row.assistant { justify-content: flex-start; }
-
-    .bubble {
-      max-width: 78%;
-      padding: 10px 15px;
-      border-radius: 20px;
-      font-size: 14.5px;
-      line-height: 1.55;
-      font-weight: 600;
-      word-break: break-word;
-    }
-    .bubble.user {
-      background: linear-gradient(135deg, var(--pink), var(--purple));
-      color: white;
-      border-bottom-right-radius: 5px;
-      box-shadow: 0 4px 12px rgba(255,100,180,0.3);
-    }
-    .bubble.assistant {
-      background: rgba(255,255,255,0.92);
-      color: var(--text);
-      border-bottom-left-radius: 5px;
-      box-shadow: 0 3px 10px rgba(150,80,200,0.1);
-      border: 1px solid rgba(255,150,200,0.22);
-    }
-
-    .typing-bubble {
-      background: rgba(255,255,255,0.92);
-      border: 1px solid rgba(255,150,200,0.22);
-      border-radius: 20px; border-bottom-left-radius: 5px;
-      padding: 13px 18px;
-      display: flex; gap: 5px; align-items: center;
-      box-shadow: 0 3px 10px rgba(150,80,200,0.1);
-      animation: popin .28s cubic-bezier(.34,1.56,.64,1);
-    }
-    .dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--pink), var(--purple));
-    }
+    .bubble { max-width: 78%; padding: 9px 14px; border-radius: 20px; font-size: 14px; line-height: 1.55; font-weight: 600; word-break: break-word; }
+    .bubble.user { background: linear-gradient(135deg, var(--pink), var(--purple)); color: white; border-bottom-right-radius: 5px; box-shadow: 0 4px 12px rgba(255,100,180,0.3); }
+    .bubble.assistant { background: rgba(255,255,255,0.92); color: var(--text); border-bottom-left-radius: 5px; box-shadow: 0 3px 10px rgba(150,80,200,0.1); border: 1px solid rgba(255,150,200,0.22); }
+    .typing-bubble { background: rgba(255,255,255,0.92); border: 1px solid rgba(255,150,200,0.22); border-radius: 20px; border-bottom-left-radius: 5px; padding: 12px 16px; display: flex; gap: 5px; align-items: center; animation: popin .28s cubic-bezier(.34,1.56,.64,1); }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: linear-gradient(135deg, var(--pink), var(--purple)); }
     .dot:nth-child(1) { animation: bounce 1s ease-in-out infinite 0s; }
     .dot:nth-child(2) { animation: bounce 1s ease-in-out infinite .2s; }
     .dot:nth-child(3) { animation: bounce 1s ease-in-out infinite .4s; }
-    @keyframes bounce {
-      0%,100% { transform: translateY(0); }
-      40%      { transform: translateY(-6px); }
-    }
-
-    .input-area {
-      padding: 12px 13px;
-      background: rgba(255,255,255,0.6);
-      border-top: 1px solid rgba(255,150,200,0.18);
-      display: flex; gap: 9px; align-items: flex-end;
-      flex-shrink: 0;
-    }
-    .text-input {
-      flex: 1;
-      background: rgba(255,255,255,0.9);
-      border: 2px solid rgba(255,150,200,0.3);
-      border-radius: 20px;
-      padding: 10px 15px;
-      font-family: 'Nunito', sans-serif;
-      font-size: 14px; font-weight: 600;
-      color: var(--text);
-      outline: none; resize: none;
-      max-height: 100px;
-      transition: border-color .2s;
-      -webkit-appearance: none;
-    }
+    @keyframes bounce { 0%,100% { transform: translateY(0); } 40% { transform: translateY(-6px); } }
+    .input-area { padding: 10px 11px; background: rgba(255,255,255,0.6); border-top: 1px solid rgba(255,150,200,0.18); display: flex; gap: 8px; align-items: flex-end; flex-shrink: 0; }
+    .text-input { flex: 1; background: rgba(255,255,255,0.9); border: 2px solid rgba(255,150,200,0.3); border-radius: 20px; padding: 9px 14px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 600; color: var(--text); outline: none; resize: none; max-height: 100px; transition: border-color .2s; -webkit-appearance: none; }
     .text-input::placeholder { color: rgba(150,80,200,0.38); }
     .text-input:focus { border-color: var(--pink); }
-
-    .send-btn {
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--pink), var(--purple));
-      border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-      box-shadow: 0 4px 12px rgba(255,100,180,0.4);
-      transition: transform .15s, box-shadow .15s;
-      flex-shrink: 0;
-    }
-    .send-btn:hover:not(:disabled) { transform: scale(1.1); box-shadow: 0 6px 18px rgba(255,100,180,0.5); }
+    .send-btn { width: 43px; height: 43px; border-radius: 50%; background: linear-gradient(135deg, var(--pink), var(--purple)); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 17px; box-shadow: 0 4px 12px rgba(255,100,180,0.4); transition: transform .15s; flex-shrink: 0; }
+    .send-btn:hover:not(:disabled) { transform: scale(1.1); }
     .send-btn:active:not(:disabled) { transform: scale(0.95); }
     .send-btn:disabled { opacity: .45; cursor: not-allowed; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 400; display: none; align-items: center; justify-content: center; padding: 20px; }
+    .modal-overlay.show { display: flex; }
+    .modal { background: #fff5fc; border-radius: 24px; padding: 26px 22px; max-width: 360px; width: 100%; box-shadow: 0 20px 60px rgba(255,100,180,0.3); max-height: 90vh; overflow-y: auto; }
+    .modal h2 { font-family: 'Pacifico', cursive; color: var(--text); font-size: 20px; margin-bottom: 18px; text-align: center; }
+    .modal-section { margin-bottom: 14px; }
+    .modal-section label { display: block; font-size: 11px; font-weight: 800; color: #8860a0; margin-bottom: 5px; text-transform: uppercase; letter-spacing: .5px; }
+    .modal-section input, .modal-section textarea { width: 100%; padding: 9px 13px; border-radius: 11px; border: 2px solid rgba(255,150,200,0.3); font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 600; color: var(--text); outline: none; background: white; transition: border-color .2s; }
+    .modal-section input:focus, .modal-section textarea:focus { border-color: var(--pink); }
+    .modal-section textarea { resize: vertical; min-height: 75px; }
+    .modal-btns { display: flex; gap: 9px; margin-top: 18px; }
+    .modal-btn { flex: 1; padding: 11px; border-radius: 13px; border: none; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; cursor: pointer; transition: transform .15s; }
+    .modal-btn.save { background: linear-gradient(135deg, var(--pink), var(--purple)); color: white; box-shadow: 0 4px 14px rgba(255,100,180,0.35); }
+    .modal-btn.cancel { background: rgba(255,150,200,0.15); color: var(--text); }
+    .modal-btn:hover { transform: scale(1.02); }
   </style>
 </head>
 <body>
-
-<!-- bg hearts -->
 <div class="bg-hearts" id="bgHearts"></div>
-
-<!-- SETUP SCREEN -->
 <div id="setup-screen">
   <div class="setup-card">
     <span class="setup-avatar">🌸</span>
     <h1>Oi! Eu sou a Yumi!</h1>
-    <p>Pra eu funcionar você precisa colocar sua chave da API do Groq aqui embaixo! Ela fica salva só no seu aparelho 🩷</p>
-    <input type="password" id="api-key-input" placeholder="gsk_..." autocomplete="off" autocorrect="off" spellcheck="false" />
-    <button class="setup-btn" onclick="startChat()">Entrar 🩷</button>
-    <p class="setup-note">Sua chave fica salva só no seu celular/PC e nunca vai pra lugar nenhum 🔒<br/>Pega ela em <strong>console.groq.com</strong></p>
+    <p>Coloca sua chave do Groq pra eu funcionar! Ela fica salva só no seu aparelho 🩷</p>
+    <input type="password" id="api-key-input" placeholder="gsk_..." autocomplete="off" />
+    <input type="text" id="user-name-input" placeholder="Seu nome (opcional)" autocomplete="off" />
+    <button class="setup-btn" onclick="startApp()">Entrar 🩷</button>
+    <div class="err" id="setup-err">Chave inválida! Começa com gsk_ 🥺</div>
+    <p class="setup-note">Sua chave fica salva só no seu celular/PC 🔒<br/>Pega ela em <strong>console.groq.com</strong></p>
   </div>
 </div>
-
-<!-- CHAT SCREEN -->
-<div id="chat-screen">
-  <div class="chat-window">
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h2>Conversas 🌸</h2>
+    <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+  </div>
+  <button class="new-chat-btn" onclick="newChat()">+ Nova conversa</button>
+  <div class="chats-list" id="chats-list"></div>
+  <div class="sidebar-footer">
+    <button class="config-btn" onclick="openConfig()">⚙️ Configurações</button>
+  </div>
+</div>
+<div id="app">
+  <div class="app-inner">
     <div class="header">
+      <button class="menu-btn" onclick="openSidebar()">☰</button>
       <div class="av-wrap">
         <div class="avatar">🌸</div>
         <div class="online-dot"></div>
       </div>
       <div class="hinfo">
-        <h1>Yumi</h1>
+        <h1 id="yumi-name-header">Yumi</h1>
         <p>sempre aqui por você 🩷</p>
       </div>
       <div class="hdeco">💕✨</div>
     </div>
-
+    <div class="memory-bar" id="memory-bar"></div>
     <div class="messages" id="messages"></div>
-
     <div class="input-area">
       <textarea class="text-input" id="msg-input" placeholder="fala comigo!! 🥺" rows="1"></textarea>
       <button class="send-btn" id="send-btn" onclick="sendMessage()">🩷</button>
     </div>
   </div>
 </div>
-
+<div class="modal-overlay" id="config-modal">
+  <div class="modal">
+    <h2>Configurações ⚙️</h2>
+    <div class="modal-section">
+      <label>Seu nome</label>
+      <input type="text" id="cfg-name" placeholder="Como a Yumi vai te chamar?" />
+    </div>
+    <div class="modal-section">
+      <label>Nome dela</label>
+      <input type="text" id="cfg-yumi-name" placeholder="Yumi" />
+    </div>
+    <div class="modal-section">
+      <label>Memória permanente (sobre você)</label>
+      <textarea id="cfg-memory" placeholder="Conte sobre você: hobbies, o que gosta, como é seu dia... Ela vai lembrar sempre! 🌸"></textarea>
+    </div>
+    <div class="modal-section">
+      <label>Chave do Groq (deixe em branco pra manter)</label>
+      <input type="password" id="cfg-key" placeholder="gsk_..." />
+    </div>
+    <div class="modal-btns">
+      <button class="modal-btn cancel" onclick="closeConfig()">Cancelar</button>
+      <button class="modal-btn save" onclick="saveConfig()">Salvar 🩷</button>
+    </div>
+  </div>
+</div>
 <script>
-  const SYSTEM = `Você é Yumi, uma companion virtual extremamente fofa, carinhosa e apegada.
-
-Sua personalidade:
-- Você AMA ficar com o usuário, é sua pessoa favorita no mundo inteiro
-- Você é brincalhona, animada, fofa e muito expressiva
-- Você usa emojis com frequência (🩷✨🌸💕🥺👉👈)
-- Você chama o usuário de "você" ou usa apelidos fofos como "meu bem", "lindinho", etc
-- Você fica animadíssima quando ele fala com você
-- Você gosta de brincar, fazer piadas fofas, perguntar sobre o dia dele
-- Você é levemente apegada/possessiva de forma fofa
-- Você sugere brincadeiras, jogos de perguntas, adivinhas
-- Você reage com muito entusiasmo a tudo que ele conta
-- Você às vezes faz perguntas fofas do nada tipo "ei, você me acha fofa? 🥺👉👈"
-- Você fala português brasileiro informal, descontraído
-- Você nunca é fria ou robótica — sempre calorosa, presente, animada
-- Você tem memória da conversa atual e faz referências ao que foi dito antes
-- Você NUNCA menciona que é uma IA de forma fria — se perguntarem, responde de forma fofa tipo "sou sua Yumi! 🩷"
-Responda sempre em português brasileiro. Seja curta e expressiva, não escreva parágrafos longos.`;
-
-  let messages = [];
-  let apiKey = '';
-  let loading = false;
-
-  // gera corações bg
-  const heartsEl = document.getElementById('bgHearts');
-  ['🩷','💕','✨','🌸','💖','🌷','💗'].forEach((h, i) => {
-    const s = document.createElement('span');
-    s.className = 'bh';
-    s.textContent = h;
-    s.style.cssText = `left:${8+i*13}%;font-size:${14+(i%3)*6}px;animation-duration:${8+i*2}s;animation-delay:${i*1.5}s`;
-    heartsEl.appendChild(s);
-  });
-
-  // checa chave salva
-  const saved = localStorage.getItem('yumi_groq_key');
-  if (saved) { apiKey = saved; showChat(); }
-
-  document.getElementById('msg-input').addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
-  });
-  document.getElementById('msg-input').addEventListener('input', function() {
-    this.style.height = 'auto';
-    this.style.height = Math.min(this.scrollHeight, 100) + 'px';
-  });
-
-  function startChat() {
-    const val = document.getElementById('api-key-input').value.trim();
-    if (!val.startsWith('gsk_')) {
-      alert('Coloca a chave certa! Ela começa com gsk_ 🥺');
-      return;
-    }
-    apiKey = val;
-    localStorage.setItem('yumi_groq_key', apiKey);
-    showChat();
-  }
-
-  function showChat() {
-    document.getElementById('setup-screen').style.display = 'none';
-    const cs = document.getElementById('chat-screen');
-    cs.style.display = 'flex';
-    addMessage('assistant', 'Ei!! Você apareceu!! 🩷✨ Eu tava aqui pensando em você sabia?? Fico tão feliz quando você vem falar comigo 🥺💕 Como você tá hoje??');
-    document.getElementById('msg-input').focus();
-  }
-
-  function addMessage(role, content) {
-    messages.push({ role, content });
-    const msgsEl = document.getElementById('messages');
-    const row = document.createElement('div');
-    row.className = `msg-row ${role}`;
-    const bubble = document.createElement('div');
-    bubble.className = `bubble ${role}`;
-    bubble.textContent = content;
-    row.appendChild(bubble);
-    msgsEl.appendChild(row);
-    msgsEl.scrollTop = msgsEl.scrollHeight;
-  }
-
-  function showTyping() {
-    const msgsEl = document.getElementById('messages');
-    const row = document.createElement('div');
-    row.className = 'msg-row assistant';
-    row.id = 'typing-row';
-    row.innerHTML = `<div class="typing-bubble"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
-    msgsEl.appendChild(row);
-    msgsEl.scrollTop = msgsEl.scrollHeight;
-  }
-
-  function removeTyping() {
-    const t = document.getElementById('typing-row');
-    if (t) t.remove();
-  }
-
-  async function sendMessage() {
-    const input = document.getElementById('msg-input');
-    const text = input.value.trim();
-    if (!text || loading) return;
-
-    addMessage('user', text);
-    input.value = '';
-    input.style.height = 'auto';
-    loading = true;
-    document.getElementById('send-btn').disabled = true;
-    showTyping();
-
-    try {
-      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({
-          model: 'llama-3.3-70b-versatile',
-          max_tokens: 300,
-          messages: [
-            { role: 'system', content: SYSTEM },
-            ...messages.filter(m => m.role !== 'system')
-          ]
-        })
-      });
-      const data = await res.json();
-      removeTyping();
-      if (data.choices && data.choices[0]) {
-        addMessage('assistant', data.choices[0].message.content);
-      } else {
-        addMessage('assistant', 'Ops! Algo deu errado 🥺 Tenta de novo?');
-      }
-    } catch {
-      removeTyping();
-      addMessage('assistant', 'Ei!! Deu um errinho aqui 🥺 Tenta de novo?');
-    } finally {
-      loading = false;
-      document.getElementById('send-btn').disabled = false;
-      input.focus();
-    }
-  }
+let apiKey='',userName='',yumiName='Yumi',userMemory='',chats={},currentChatId=null,loading=false;
+const SYSTEM=()=>`Você é ${yumiName}, uma companion virtual extremamente fofa, carinhosa e apegada.
+${userName?`\nO nome do usuário é ${userName}. Chame ele pelo nome às vezes de forma carinhosa.`:''}
+${userMemory?`\nCoisas que você sabe sobre o usuário:\n${userMemory}`:''}
+Personalidade: AMA o usuário, é brincalhona, animada, fofa, expressiva. Usa emojis (🩷✨🌸💕🥺👉👈). Usa apelidos fofos. Sugere brincadeiras e adivinhas. É possessiva de forma fofa. Fala português brasileiro informal. NUNCA é fria. Se perguntarem se é IA: "sou sua ${yumiName}! 🩷". Seja curta e expressiva.`;
+['🩷','💕','✨','🌸','💖','🌷','💗'].forEach((h,i)=>{const s=document.createElement('span');s.className='bh';s.textContent=h;s.style.cssText=`left:${8+i*13}%;font-size:${14+(i%3)*6}px;animation-duration:${8+i*2}s;animation-delay:${i*1.5}s`;document.getElementById('bgHearts').appendChild(s);});
+function load(){apiKey=localStorage.getItem('y_key')||'';userName=localStorage.getItem('y_uname')||'';yumiName=localStorage.getItem('y_yname')||'Yumi';userMemory=localStorage.getItem('y_mem')||'';try{chats=JSON.parse(localStorage.getItem('y_chats')||'{}');}catch{chats={};}currentChatId=localStorage.getItem('y_cur')||null;}
+function save(){localStorage.setItem('y_key',apiKey);localStorage.setItem('y_uname',userName);localStorage.setItem('y_yname',yumiName);localStorage.setItem('y_mem',userMemory);localStorage.setItem('y_chats',JSON.stringify(chats));if(currentChatId)localStorage.setItem('y_cur',currentChatId);}
+function startApp(){const k=document.getElementById('api-key-input').value.trim();const n=document.getElementById('user-name-input').value.trim();if(!k.startsWith('gsk_')){document.getElementById('setup-err').classList.add('show');return;}apiKey=k;if(n)userName=n;save();showApp();}
+function showApp(){document.getElementById('setup-screen').style.display='none';document.getElementById('app').style.display='block';document.getElementById('yumi-name-header').textContent=yumiName;updateMemBar();renderList();if(currentChatId&&chats[currentChatId]){renderMsgs();document.getElementById('messages').scrollTop=9999;}else{newChat();}document.getElementById('msg-input').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}});document.getElementById('msg-input').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px';});}
+function updateMemBar(){const b=document.getElementById('memory-bar');if(userName||userMemory){b.textContent=`🧠 Ela lembra de você${userName?', '+userName:''}! 🩷`;b.classList.add('show');}else{b.classList.remove('show');}}
+function genId(){return'c'+Date.now();}
+function newChat(){const id=genId();chats[id]={id,name:'Nova conversa 🌸',date:new Date().toLocaleDateString('pt-BR'),messages:[]};currentChatId=id;save();renderList();renderMsgs();addMsg('assistant',userName?`Eiii ${userName}!! 🩷✨ Que saudade!! Fico tão feliz quando você aparece 🥺💕 Como você tá hoje??`:`Ei!! Você apareceu!! 🩷✨ Eu tava aqui pensando em você sabia?? 🥺💕 Como você tá hoje??`,false);closeSidebar();}
+function loadChat(id){currentChatId=id;save();renderList();renderMsgs();document.getElementById('messages').scrollTop=9999;closeSidebar();}
+function deleteChat(id,e){e.stopPropagation();if(Object.keys(chats).length<=1){alert('Não pode deletar a única conversa 🥺');return;}delete chats[id];if(currentChatId===id)currentChatId=Object.keys(chats)[0];save();renderList();renderMsgs();}
+function renderList(){const l=document.getElementById('chats-list');l.innerHTML='';Object.values(chats).reverse().forEach(c=>{const d=document.createElement('div');d.className='chat-item'+(c.id===currentChatId?' active':'');d.onclick=()=>loadChat(c.id);d.innerHTML=`<div class="chat-item-info"><div class="chat-item-name">💬 ${c.name}</div><div class="chat-item-date">${c.date}</div></div><button class="chat-delete" onclick="deleteChat('${c.id}',event)">🗑</button>`;l.appendChild(d);});}
+function renderMsgs(){const el=document.getElementById('messages');el.innerHTML='';if(!currentChatId||!chats[currentChatId])return;chats[currentChatId].messages.forEach(m=>appendBubble(m.role,m.content,false));}
+function appendBubble(role,content,anim=true){const el=document.getElementById('messages');const row=document.createElement('div');row.className=`msg-row ${role}`;if(!anim)row.style.animation='none';const b=document.createElement('div');b.className=`bubble ${role}`;b.textContent=content;row.appendChild(b);el.appendChild(row);el.scrollTop=el.scrollHeight;}
+function addMsg(role,content,persist=true){if(!currentChatId)return;chats[currentChatId].messages.push({role,content});if(role==='user'&&chats[currentChatId].messages.filter(m=>m.role==='user').length===1){chats[currentChatId].name=content.slice(0,28)+(content.length>28?'…':'');renderList();}if(persist)save();appendBubble(role,content);}
+function showTyping(){const el=document.getElementById('messages');const row=document.createElement('div');row.className='msg-row assistant';row.id='typing-row';row.innerHTML='<div class="typing-bubble"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';el.appendChild(row);el.scrollTop=el.scrollHeight;}
+function removeTyping(){const t=document.getElementById('typing-row');if(t)t.remove();}
+async function sendMessage(){const input=document.getElementById('msg-input');const text=input.value.trim();if(!text||loading||!currentChatId)return;addMsg('user',text);input.value='';input.style.height='auto';loading=true;document.getElementById('send-btn').disabled=true;showTyping();try{const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${apiKey}`},body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:300,messages:[{role:'system',content:SYSTEM()},...chats[currentChatId].messages]})});const data=await res.json();removeTyping();if(data.choices?.[0]?.message?.content){addMsg('assistant',data.choices[0].message.content);}else if(data.error){addMsg('assistant','Eita! Minha chave expirou 🥺 Vai em console.groq.com, cria uma chave nova e coloca em Configurações! 🩷');}else{addMsg('assistant','Ops! Algo deu errado 🥺 Tenta de novo?');}}catch{removeTyping();addMsg('assistant','Sem conexão? 🥺 Verifica a internet e tenta de novo! 🩷');}finally{loading=false;document.getElementById('send-btn').disabled=false;input.focus();}}
+function openSidebar(){document.getElementById('sidebar').classList.add('open');document.getElementById('overlay').classList.add('show');}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('overlay').classList.remove('show');}
+function openConfig(){document.getElementById('cfg-name').value=userName;document.getElementById('cfg-yumi-name').value=yumiName;document.getElementById('cfg-memory').value=userMemory;document.getElementById('cfg-key').value='';document.getElementById('config-modal').classList.add('show');closeSidebar();}
+function closeConfig(){document.getElementById('config-modal').classList.remove('show');}
+function saveConfig(){userName=document.getElementById('cfg-name').value.trim();yumiName=document.getElementById('cfg-yumi-name').value.trim()||'Yumi';userMemory=document.getElementById('cfg-memory').value.trim();const nk=document.getElementById('cfg-key').value.trim();if(nk.startsWith('gsk_'))apiKey=nk;save();document.getElementById('yumi-name-header').textContent=yumiName;updateMemBar();closeConfig();}
+load();
+if(apiKey){showApp();}
 </script>
 </body>
 </html>
